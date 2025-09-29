@@ -1,55 +1,245 @@
-<!-- index.html (or menu.html) - Главная страница меню -->
 <!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foodies - Супы</title>
-    <link rel="stylesheet" href="styles_menu.css">
-</head>
-<body>
-    <header>
-        <div class="logo">Foodies</div>
-        <div class="search-icon">🔍</div>
-    </header>
-
-    <nav>
-        <a href="#">Роллы</a>
-        <a href="#" class="active">Супы</a>
-        <a href="#">Наборы</a>
-        <a href="#">Горячие блюда</a>
-    </nav>
-
-    <section class="menu">
-        <a href="detail.html" class="menu-item">
-            <img src="https://via.placeholder.com/300x200?text=Том+Ям" alt="Том Ям">
-            <h3>Том Ям</h3>
-            <div class="weight">500 г</div>
-            <div class="price">720 ₽ <span class="old-price">800 ₽</span></div>
-        </a>
-
-        <a href="detail.html" class="menu-item"> <!-- Для демо все ссылки на одну страницу; в реальности используйте уникальные URL -->
-            <img src="https://via.placeholder.com/300x200?text=Название+блюда" alt="Название блюда">
-            <h3>Название блюда</h3>
-            <div class="weight">500 г</div>
-            <div class="price">480 ₽</div>
-        </a>
-
-        <a href="detail.html" class="menu-item">
-            <img src="https://via.placeholder.com/300x200?text=Название+блюда" alt="Название блюда">
-            <h3>Название блюда</h3>
-            <div class="weight">500 г</div>
-            <div class="price">480 ₽</div>
-        </a>
-
-        <a href="detail.html" class="menu-item">
-            <img src="https://via.placeholder.com/300x200?text=Название+блюда" alt="Название блюда">
-            <h3>Название блюда</h3>
-            <div class="weight">500 г</div>
-            <div class="price">480 ₽</div>
-        </a>
-
-        <!-- Добавьте больше элементов по необходимости -->
-    </section>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foodies</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="hero-section">
+        <div class="flex-row-bc">
+          <div class="bg"></div>
+          <div class="menu">
+            <div class="delivery">
+              <div class="phone"></div>
+              <span class="phone-number">+375 (29) 321 00 00</span>
+            </div>
+            <div class="menu-1">
+              <span class="menu-2">Меню</span
+              ><span class="profile">Профиль</span>
+            </div>
+          </div>
+          <div class="logo"></div>
+          <div class="search-field">
+            <span class="search">Поиск</span>
+            <div class="search-icon"></div>
+          </div>
+          <div class="group">
+            <div class="shopping-cart"></div>
+            <div class="group-3">
+              <span class="number">1</span>
+              <div class="group-4"></div>
+            </div>
+          </div>
+        </div>
+        <div class="group-5">
+          <div class="group-6">
+            <span class="soups">Супы</span>
+            <div class="rectangle"></div>
+          </div>
+          <div class="group-7">
+            <span class="sets">Наборы</span>
+            <div class="rectangle-8"></div>
+          </div>
+          <div class="group-9">
+            <span class="tom-yam">Том Ям</span>
+            <div class="rectangle-a"></div>
+          </div>
+          <div class="group-b">
+            <span class="sets-c">Сеты</span>
+            <div class="rectangle-d"></div>
+          </div>
+          <div class="group-e">
+            <span class="rolls">Роллы</span>
+            <div class="rectangle-f"></div>
+          </div>
+          <div class="group-10">
+            <span class="salads">Салаты</span>
+            <div class="rectangle-11"></div>
+          </div>
+        </div>
+        <div class="flex-row-acb">
+          <div class="product-card">
+            <div class="photo"></div>
+            <span class="tom-yam-12">Том Ям</span
+            ><span class="quantity">1 шт</span>
+            <div class="rectangle-13"></div>
+            <div class="counter">
+              <div class="empty">
+                <span class="minus">-</span>
+                <div class="button-border"></div>
+                <div class="inner-border"></div>
+                <div class="border"></div>
+              </div>
+              <div class="plus">
+                <div class="base"></div>
+                <div class="button-border-14"></div>
+                <span class="plus-sign">+</span>
+              </div>
+              <span class="quantity-number">1</span>
+            </div>
+            <div class="group-15">
+              <div class="group-16">
+                <span class="add-to-cart">В корзину</span>
+                <div class="rectangle-17"></div>
+              </div>
+            </div>
+            <span class="price">290 руб</span>
+          </div>
+          <div class="product-card-18">
+            <div class="rectangle-19"></div>
+            <div class="product-card-1a">
+              <div class="photo-1b"></div>
+              <span class="tom-yam-1c">Том Ям</span
+              ><span class="quantity-1d">1 шт</span>
+              <div class="rectangle-1e"></div>
+              <div class="counter-1f">
+                <div class="empty-20">
+                  <span class="dash">-</span>
+                  <div class="button-outline"></div>
+                  <div class="inner-outline"></div>
+                  <div class="outline"></div>
+                </div>
+                <div class="plus-21">
+                  <div class="base-22"></div>
+                  <div class="button-outline-23"></div>
+                  <span class="plus-24">+</span>
+                </div>
+                <span class="one">1</span>
+              </div>
+              <div class="group-25">
+                <div class="group-26">
+                  <span class="add-to-cart-27">В корзину</span>
+                  <div class="rectangle-28"></div>
+                </div>
+              </div>
+              <span class="price-29">290 руб</span>
+            </div>
+            <div class="photo-2a"></div>
+            <span class="tom-yam-2b">Том Ям</span
+            ><span class="quantity-2c">1 шт</span>
+            <div class="counter-2d">
+              <div class="empty-2e">
+                <span class="dash-2f">-</span>
+                <div class="button-outline-30"></div>
+                <div class="inner-outline-31"></div>
+                <div class="outline-32"></div>
+              </div>
+              <div class="plus-33">
+                <div class="base-34"></div>
+                <div class="button-outline-35"></div>
+                <span class="plus-36">+</span>
+              </div>
+              <span class="one-37">1</span>
+            </div>
+            <div class="group-38">
+              <div class="group-39">
+                <span class="add-to-cart-3a">В корзину</span>
+                <div class="rectangle-3b"></div>
+              </div>
+            </div>
+            <span class="price-3c">290 руб</span>
+          </div>
+        </div>
+        <div class="flex-row-e">
+          <div class="product-card-3d">
+            <div class="photo-3e"></div>
+            <span class="tom-yam-3f">Том Ям</span
+            ><span class="one-piece">1 шт</span>
+            <div class="rectangle-40"></div>
+            <div class="counter-41">
+              <div class="empty-42">
+                <span class="dash-43">-</span>
+                <div class="button-indicator-outline"></div>
+                <div class="inner-outline-44"></div>
+                <div class="outline-45"></div>
+              </div>
+              <div class="plus-46">
+                <div class="base-47"></div>
+                <div class="button-outline-48"></div>
+                <span class="plus-sign-49">+</span>
+              </div>
+              <span class="one-4a">1</span>
+            </div>
+            <div class="group-4b">
+              <div class="group-4c">
+                <span class="add-to-cart-4d">В корзину</span>
+                <div class="rectangle-4e"></div>
+              </div>
+            </div>
+            <span class="rub">290 руб</span>
+          </div>
+          <div class="product-card-4f">
+            <div class="rectangle-50"></div>
+            <div class="product-card-51">
+              <div class="photo-52"></div>
+              <span class="tom-yam-53">Том Ям</span
+              ><span class="one-piece-54">1 шт</span>
+              <div class="rectangle-55"></div>
+              <div class="counter-56">
+                <div class="empty-57">
+                  <span class="dash-58">-</span>
+                  <div class="button-indicator-outline-59"></div>
+                  <div class="inner-outline-5a"></div>
+                  <div class="outline-5b"></div>
+                </div>
+                <div class="plus-5c">
+                  <div class="base-5d"></div>
+                  <div class="button-outline-5e"></div>
+                  <span class="plus-button">+</span>
+                </div>
+                <span class="quantity-5f">1</span>
+              </div>
+              <div class="group-60">
+                <div class="group-61">
+                  <span class="add-to-cart-62">В корзину</span>
+                  <div class="rectangle-63"></div>
+                </div>
+              </div>
+              <span class="price-64">290 руб</span>
+            </div>
+            <div class="photo-65"></div>
+            <span class="item-name">Том Ям</span
+            ><span class="item-quantity">1 шт</span>
+            <div class="counter-66">
+              <div class="empty-67">
+                <span class="minus-68">-</span>
+                <div class="indicator-button-outline"></div>
+                <div class="inner-outline-69"></div>
+                <div class="outline-6a"></div>
+              </div>
+              <div class="plus-6b">
+                <div class="base-6c"></div>
+                <div class="button-outline-6d"></div>
+                <span class="plus-button-6e">+</span>
+              </div>
+              <span class="quantity-6f">1</span>
+            </div>
+            <div class="group-70">
+              <div class="group-71">
+                <span class="add-to-cart-72">В корзину</span>
+                <div class="rectangle-73"></div>
+              </div>
+            </div>
+            <span class="price-74">290 руб</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex-row-b">
+        <div class="social-links">
+          <div class="instagram-icon"></div>
+          <div class="dribbble-icon"></div>
+          <div class="twitter-icon"></div>
+          <div class="youtube-icon"></div>
+        </div>
+        <div class="image"></div>
+        <span class="copyright">© 2021 ТаскТрекер. Все права защищены</span>
+      </div>
+    </div>
+    <!-- Generated by Codia AI - https://codia.ai/ -->
+  </body>
 </html>
