@@ -9,10 +9,10 @@ import AuthModal from './components/authModal/AuthModal'
 import { useState, useEffect } from 'react'
 
 function App() {
-	const [cartItems, setCartItems] = useState([])
-	const [currentUser, setCurrentUser] = useState(null)
-	const [showAuthModal, setShowAuthModal] = useState(false)
-	const [searchQuery, setSearchQuery] = useState('')
+	const [cartItems, setCartItems] = useState([]) //  - товары в корзине
+	const [currentUser, setCurrentUser] = useState(null) //  - текущий юзер
+	const [showAuthModal, setShowAuthModal] = useState(false) //- авторазиация (visibility)
+	const [searchQuery, setSearchQuery] = useState('')  // строка поиска
 
 	useEffect(() => {
 		const savedCart = localStorage.getItem('cartItems')
@@ -37,7 +37,7 @@ function App() {
 		}
 	}, [currentUser])
 
-	const handleAddToCart = (product, quantity) => {
+	const handleAddToCart = (product, quantity) => { 
 		setCartItems(prevItems => {
 			const existingItem = prevItems.find(item => item.id === product.id)
 

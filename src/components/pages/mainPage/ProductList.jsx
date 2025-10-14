@@ -18,18 +18,16 @@ const ProductList = ({ onAddToCart, searchQuery }) => {
 		fetchProducts()
 	}, [])
 
-	// Фильтрация продуктов по поисковому запросу и категории
+	// фильтр продуктов по поисковому запросу и  категории
 	useEffect(() => {
 		let result = products
 
-		// Применяем поиск
 		if (searchQuery) {
 			result = result.filter(product =>
 				product.name.toLowerCase().includes(searchQuery.toLowerCase())
 			)
 		}
-
-		// Применяем фильтр по категории
+		
 		if (activeFilter !== 'все') {
 			result = result.filter(product => product.category === activeFilter)
 		}
@@ -256,7 +254,7 @@ const ProductList = ({ onAddToCart, searchQuery }) => {
 		setProducts(mockProducts)
 		setFilteredProducts(mockProducts)
 	}
-
+// модальное окно
 	const handleProductClick = product => {
 		setSelectedProduct(product)
 		setShowProductModal(true)

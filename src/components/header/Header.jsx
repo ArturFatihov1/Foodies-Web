@@ -28,7 +28,7 @@ function Header({
 		return () => window.removeEventListener('scroll', handleScroll)
 	}, [])
 
-	// Поиск товаров при изменении запроса
+
 	useEffect(() => {
 		if (onSearch) {
 			onSearch(searchQuery)
@@ -66,7 +66,7 @@ function Header({
 
 	const handleSearchSubmit = e => {
 		e.preventDefault()
-		// Поиск уже работает автоматически, форма нужна для accessibility
+	
 	}
 
 	const clearSearch = () => {

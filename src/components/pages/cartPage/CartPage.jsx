@@ -12,16 +12,16 @@ const CartPage = ({
 	onClearCart,
 	currentUser,
 }) => {
-	const [showPickupModal, setShowPickupModal] = useState(false)
-	const [showDeliveryModal, setShowDeliveryModal] = useState(false)
-	const [selectedPickupPoint, setSelectedPickupPoint] = useState(null)
+	const [showPickupModal, setShowPickupModal] = useState(false) // модальное окно самовывоза
+	const [showDeliveryModal, setShowDeliveryModal] = useState(false) // модальное окно доставки
+	const [selectedPickupPoint, setSelectedPickupPoint] = useState(null) // выбранная точка самовывоза
 	const [notification, setNotification] = useState({
 		show: false,
 		message: '',
 		type: '',
 	})
 
-	const subtotal = cartItems.reduce(
+	const subtotal = cartItems.reduce( // сумма товара
 		(sum, item) => sum + item.price * item.quantity,
 		0
 	)
@@ -97,7 +97,7 @@ const CartPage = ({
 				return
 			}
 
-			// Исправлено: передаем только нужные данные, а не весь объект
+	
 			const orderData = {
 				type: 'pickup',
 				items: cartItems,
@@ -162,7 +162,7 @@ const CartPage = ({
 					entrance: deliveryData.entrance,
 					apartment: deliveryData.apartment,
 					phone: deliveryData.phone,
-				}, // Передаем только нужные поля
+				}, 
 				total,
 				status: 'processing',
 				date: new Date().toISOString(),

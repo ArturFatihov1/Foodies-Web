@@ -19,7 +19,7 @@ const ProfilePage = ({ currentUser, onUserUpdate }) => {
 			setUserData(currentUser)
 			fetchOrders()
 		}
-		// eslint-disable-next-line
+		
 	}, [currentUser])
 
 	const getCurrentStatus = orderDate => {
