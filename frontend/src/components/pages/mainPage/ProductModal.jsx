@@ -11,7 +11,7 @@ const ProductModal = ({ product, onClose, onAddToCart }) => {
 		onAddToCart(product, quantity)
 	}
 
-	const handleBackdropClick = e => { // клик вне окна
+	const handleBackdropClick = e => {
 		if (e.target === e.currentTarget) {
 			onClose()
 		}

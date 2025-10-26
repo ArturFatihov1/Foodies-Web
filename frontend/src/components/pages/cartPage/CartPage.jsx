@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import PickupModal from './PickupModal'
 import DeliveryModal from './DeliveryModal'
 import Notification from './Notification'
+import { orderAPI } from '../../../services/api'
 import s from './cartPage.module.scss'
 
 const CartPage = ({
@@ -12,16 +13,16 @@ const CartPage = ({
 	onClearCart,
 	currentUser,
 }) => {
-	const [showPickupModal, setShowPickupModal] = useState(false) // модальное окно самовывоза
-	const [showDeliveryModal, setShowDeliveryModal] = useState(false) // модальное окно доставки
-	const [selectedPickupPoint, setSelectedPickupPoint] = useState(null) // выбранная точка самовывоза
+	const [showPickupModal, setShowPickupModal] = useState(false)
+	const [showDeliveryModal, setShowDeliveryModal] = useState(false)
+	const [selectedPickupPoint, setSelectedPickupPoint] = useState(null)
 	const [notification, setNotification] = useState({
 		show: false,
 		message: '',
 		type: '',
 	})
 
-	const subtotal = cartItems.reduce( // сумма товара
+	const subtotal = cartItems.reduce(
 		(sum, item) => sum + item.price * item.quantity,
 		0
 	)
@@ -97,43 +98,52 @@ const CartPage = ({
 				return
 			}
 
-	
+			console.log('Current user for order:', currentUser)
+
+			// FALLBACK для телефона
+			let userPhone = currentUser.phone
+			if (!userPhone) {
+				const savedUser = JSON.parse(
+					localStorage.getItem('currentUser') || '{}'
+				)
+				userPhone = savedUser.phone
+				console.warn(
+					'Phone not found in currentUser, using from localStorage:',
+					userPhone
+				)
+			}
+
+			if (!userPhone) {
+				showNotification('Ошибка: номер телефона не найден', 'error')
+				return
+			}
+
 			const orderData = {
 				type: 'pickup',
 				items: cartItems,
 				pickupPoint: {
 					name: pickupPoint.name,
 					address: pickupPoint.address,
-				}, // Передаем только строки, а не объект
+				},
 				total,
-				status: 'processing',
-				date: new Date().toISOString(),
-				userId: currentUser.id,
-				userPhone: currentUser.phone,
+				userId: parseInt(currentUser.id),
+				userPhone: userPhone,
 				orderNumber: `ORD-${Date.now()}`,
+				// НЕ ПЕРЕДАВАЙТЕ DATE - база данных сама установит CURRENT_TIMESTAMP
 			}
 
-			const response = await fetch(
-				'https://68d662abc2a1754b426a8851.mockapi.io/orders',
-				{
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(orderData),
-				}
+			console.log('Order data:', orderData)
+
+			// Используем ваш API для создания заказа
+			await orderAPI.createOrder(orderData)
+
+			showNotification(
+				'Заказ оформлен успешно! Ожидайте смс с подтверждением.',
+				'success'
 			)
-
-			if (response.ok) {
-				showNotification(
-					'Заказ оформлен успешно! Ожидайте смс с подтверждением.',
-					'success'
-				)
-				onClearCart()
-			} else {
-				throw new Error('Ошибка при оформлении заказа')
-			}
+			onClearCart()
 		} catch (error) {
+			console.error('Ошибка при оформлении заказа:', error)
 			showNotification(
 				'Ошибка при оформлении заказа. Попробуйте еще раз.',
 				'error'
@@ -153,6 +163,8 @@ const CartPage = ({
 				return
 			}
 
+			console.log('Current user for delivery order:', currentUser)
+
 			const orderData = {
 				type: 'delivery',
 				items: cartItems,
@@ -162,36 +174,25 @@ const CartPage = ({
 					entrance: deliveryData.entrance,
 					apartment: deliveryData.apartment,
 					phone: deliveryData.phone,
-				}, 
+				},
 				total,
-				status: 'processing',
-				date: new Date().toISOString(),
-				userId: currentUser.id,
-				userPhone: currentUser.phone,
+				userId: parseInt(currentUser.id), // ПРЕОБРАЗУЕМ В ЧИСЛО
+				userPhone: currentUser.phone, // ДОБАВЛЯЕМ ТЕЛЕФОН
 				orderNumber: `ORD-${Date.now()}`,
 			}
 
-			const response = await fetch(
-				'https://68d662abc2a1754b426a8851.mockapi.io/orders',
-				{
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(orderData),
-				}
-			)
+			console.log('Delivery order data with phone:', orderData)
 
-			if (response.ok) {
-				showNotification(
-					'Заказ оформлен успешно! Курьер свяжется с вами.',
-					'success'
-				)
-				onClearCart()
-			} else {
-				throw new Error('Ошибка при оформлении заказа')
-			}
+			// Используем ваш API для создания заказа
+			await orderAPI.createOrder(orderData)
+
+			showNotification(
+				'Заказ оформлен успешно! Курьер свяжется с вами.',
+				'success'
+			)
+			onClearCart()
 		} catch (error) {
+			console.error('Ошибка при оформлении заказа:', error)
 			showNotification(
 				'Ошибка при оформлении заказа. Попробуйте еще раз.',
 				'error'

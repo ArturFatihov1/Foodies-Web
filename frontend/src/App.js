@@ -6,13 +6,14 @@ import CartPage from './components/pages/cartPage/CartPage'
 import ProfilePage from './components/pages/profilePage/ProfilePage'
 import Footer from './components/footer/Footer'
 import AuthModal from './components/authModal/AuthModal'
+import AdminPanel from './components/adminPanel/AdminPanel'
 import { useState, useEffect } from 'react'
 
 function App() {
-	const [cartItems, setCartItems] = useState([]) //  - товары в корзине
-	const [currentUser, setCurrentUser] = useState(null) //  - текущий юзер
-	const [showAuthModal, setShowAuthModal] = useState(false) //- авторазиация (visibility)
-	const [searchQuery, setSearchQuery] = useState('')  // строка поиска
+	const [cartItems, setCartItems] = useState([])
+	const [currentUser, setCurrentUser] = useState(null)
+	const [showAuthModal, setShowAuthModal] = useState(false)
+	const [searchQuery, setSearchQuery] = useState('')
 
 	useEffect(() => {
 		const savedCart = localStorage.getItem('cartItems')
@@ -23,7 +24,9 @@ function App() {
 		}
 
 		if (savedUser) {
-			setCurrentUser(JSON.parse(savedUser))
+			const user = JSON.parse(savedUser)
+			console.log('🔄 Loaded user from localStorage:', user)
+			setCurrentUser(user)
 		}
 	}, [])
 
@@ -37,7 +40,7 @@ function App() {
 		}
 	}, [currentUser])
 
-	const handleAddToCart = (product, quantity) => { 
+	const handleAddToCart = (product, quantity) => {
 		setCartItems(prevItems => {
 			const existingItem = prevItems.find(item => item.id === product.id)
 
@@ -75,11 +78,13 @@ function App() {
 	}
 
 	const handleLogin = user => {
+		console.log('🔄 User logged in:', user)
 		setCurrentUser(user)
 		setShowAuthModal(false)
 	}
 
 	const handleLogout = () => {
+		console.log('🔄 User logged out')
 		setCurrentUser(null)
 		localStorage.removeItem('currentUser')
 	}
@@ -96,6 +101,21 @@ function App() {
 		setSearchQuery(query)
 	}
 
+	// ДОБАВЛЕННАЯ ФУНКЦИЯ ДЛЯ ОБНОВЛЕНИЯ ПОЛЬЗОВАТЕЛЯ
+	const handleUserUpdate = updatedUser => {
+		console.log('🔄 handleUserUpdate called with:', updatedUser)
+		console.log('🔄 Current user before update:', currentUser)
+
+		// Объединяем обновленные данные с текущим пользователем, чтобы не потерять телефон
+		const mergedUser = {
+			...currentUser, // сохраняем старые данные (включая телефон)
+			...updatedUser, // применяем обновления
+		}
+
+		console.log('🔄 Merged user:', mergedUser)
+		setCurrentUser(mergedUser)
+	}
+
 	return (
 		<div className='wrapper'>
 			<Header
@@ -108,6 +128,21 @@ function App() {
 
 			<div className='content'>
 				<Routes>
+					<Route
+						path='/admin'
+						element={
+							currentUser ? (
+								<AdminPanel currentUser={currentUser} />
+							) : (
+								<div className='auth-required'>
+									<h2>Требуется авторизация</h2>
+									<p>
+										Пожалуйста, войдите в аккаунт для доступа к админ-панели
+									</p>
+								</div>
+							)
+						}
+					/>
 					<Route
 						path='/'
 						element={
@@ -135,7 +170,7 @@ function App() {
 							currentUser ? (
 								<ProfilePage
 									currentUser={currentUser}
-									onUserUpdate={setCurrentUser}
+									onUserUpdate={handleUserUpdate} // ИСПОЛЬЗУЕМ НОВУЮ ФУНКЦИЮ
 								/>
 							) : (
 								<div className='auth-required'>

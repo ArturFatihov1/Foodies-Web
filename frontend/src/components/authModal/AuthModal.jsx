@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { userAPI } from '../../services/api'
 import s from './authModal.module.scss'
 
 const AuthModal = ({ onClose, onLogin }) => {
@@ -19,43 +20,16 @@ const AuthModal = ({ onClose, onLogin }) => {
 			// Форматируем номер телефона
 			const formattedPhone = phone.replace(/\D/g, '')
 
-			// Проверяем, есть ли пользователь с таким номером
-			const response = await fetch(
-				'https://68d662abc2a1754b426a8851.mockapi.io/users'
-			)
-			const users = await response.json()
-
-			let user = users.find(u => u.phone === formattedPhone)
-
-			if (!user) {
-				// Создаем нового пользователя
-				const newUser = {
-					phone: formattedPhone,
-					name: 'Новый пользователь',
-					email: '',
-					address: '',
-					createdAt: new Date().toISOString(),
-				}
-
-				const createResponse = await fetch(
-					'https://68d662abc2a1754b426a8851.mockapi.io/users',
-					{
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json',
-						},
-						body: JSON.stringify(newUser),
-					}
-				)
-
-				user = await createResponse.json()
-			}
+			// Используем ваш API для логина
+			const user = await userAPI.login(formattedPhone)
 
 			// Сохраняем пользователя в localStorage
 			localStorage.setItem('currentUser', JSON.stringify(user))
 			onLogin(user)
+			onClose()
 		} catch (error) {
 			console.error('Ошибка авторизации:', error)
+
 			// Создаем локального пользователя при ошибке API
 			const localUser = {
 				id: Date.now().toString(),
@@ -68,6 +42,7 @@ const AuthModal = ({ onClose, onLogin }) => {
 
 			localStorage.setItem('currentUser', JSON.stringify(localUser))
 			onLogin(localUser)
+			onClose()
 		} finally {
 			setIsLoading(false)
 		}
